@@ -3,17 +3,18 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.UserRepository;
 import com.example.demo.entities.User;
 import com.example.demo.service.UserService;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.validation.constraints.AssertTrue;
+import static org.mockito.Mockito.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,23 +22,30 @@ import static org.junit.Assert.*;
  * Created by Adservio on 07/12/2018.
  */
 
-@RunWith(SpringRunner.class)
-@Rollback(value = true)
+@RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
 
-    @Autowired
-    private UserService userService;
+    @InjectMocks
+    private UserService userService=new UserServiceImpl();
+
+    @Mock
+    private UserRepository userRepository;
+
     private User user;
+    private List<User> users;
 
     @Before
     public void init(){
+        users=new ArrayList<>();
         user =new User();
         user.setCreationDate(LocalDate.now());
         user.setVersion("version");
+
+        users.add(user);
     }
 
     @Test
-    public void testCreate() throws Exception {
+    public void should_create_user_test() throws Exception {
         Boolean insert= userService.create(user);
         assertNotNull(insert);
         assertEquals(true,insert);
@@ -46,17 +54,17 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void should_update_an_existing_user_test() throws Exception {
 
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void should_delete_an_existing_user_test() throws Exception {
 
     }
 
     @Test
-    public void testFindById() throws Exception {
+    public void should_return_an_existing_user_test() throws Exception {
 
     }
 }
