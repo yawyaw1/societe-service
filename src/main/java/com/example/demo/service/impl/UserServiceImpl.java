@@ -6,6 +6,8 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -30,8 +32,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean update(User user) {
-        return null;
+    public Optional<Boolean> update(User user) {
+        Function<User, Optional<Boolean>> userToUpdate = null;
+        if (user != null) {
+            userToUpdate = (u -> {
+                userRepository.saveAndFlush(u);
+                return Optional.of(true);
+            });
+        }
+        return Optional.of(userToUpdate.apply(user)).get();
     }
 
     @Override

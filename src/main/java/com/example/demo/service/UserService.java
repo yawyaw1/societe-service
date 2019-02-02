@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.entities.User;
 
+import java.util.Optional;
+
 /**
  * Created by Adservio on 07/12/2018.
  */
@@ -18,7 +20,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    Boolean update(User user);
+    Optional<Boolean> update(User user);
 
     /**
      *

@@ -15,6 +15,7 @@ import static org.mockito.Mockito.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -40,7 +41,6 @@ public class UserServiceImplTest {
         user =new User();
         user.setCreationDate(LocalDate.now());
         user.setVersion("version");
-
         users.add(user);
     }
 
@@ -55,6 +55,15 @@ public class UserServiceImplTest {
 
     @Test
     public void should_update_an_existing_user_test() throws Exception {
+
+        User userToBeUpdated=new User();
+        userToBeUpdated.setVersion("new vesrion");
+
+        when(userRepository.saveAndFlush(user)).thenReturn(userToBeUpdated);
+
+        Optional<Boolean> userToUpdate=userService.update(user);
+        assertNotNull(userToUpdate);
+        assertEquals(true,userToUpdate.get());
 
     }
 
