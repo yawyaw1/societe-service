@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.entities.User;
 
+import java.util.Optional;
+
 /**
  * Created by Adservio on 07/12/2018.
  */
@@ -32,6 +34,6 @@ public interface UserService {
      * @param id
      * @return
      */
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
 }
