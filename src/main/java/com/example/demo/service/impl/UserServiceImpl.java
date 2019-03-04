@@ -6,6 +6,8 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Created by Adservio on 07/12/2018.
  */
@@ -35,11 +37,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean delete(User user) {
-        return null;
+        if (user != null) {
+            userRepository.delete(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public User findById(Long id) {
-        return null;
+    public Optional<User> findById(Long id) {
+        if(id!=null) {
+            return userRepository.findById(id);
+        }
+        return Optional.empty();
     }
 }
