@@ -2,7 +2,6 @@ package com.example.demo.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,9 +13,8 @@ import java.util.List;
  * Created by Adservio on 07/12/2018.
  */
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Entity(name = "User")
 @Table(name = "USER")
 public class User implements Serializable {
@@ -43,7 +41,15 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Role> roles = new ArrayList<>();
 
+    public User(){}
+
+    public User(String firstname, String lastname, String username, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+    }
 }
