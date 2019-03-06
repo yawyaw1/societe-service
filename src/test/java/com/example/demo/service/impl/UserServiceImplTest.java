@@ -45,11 +45,14 @@ public class UserServiceImplTest {
         user = new User();
         user.setCreationDate(LocalDate.now());
         user.setVersion("version");
+        user.setPassword("pwd");
+        user.setUsername("username");
         users.add(user);
     }
 
     @Test
     public void should_create_user_test() throws Exception {
+        when(userRepository.save(user)).thenReturn(user);
         Boolean insert = userService.create(user);
         assertNotNull(insert);
         assertEquals(true, insert);
