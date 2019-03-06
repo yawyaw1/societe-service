@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.UserRepository;
+import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.service.UserService;
 import org.junit.Before;
@@ -81,7 +82,8 @@ public class UserServiceImplTest {
 
     @Test
     public void should_return_an_existing_user_test() throws Exception {
-        User user = new User(1L, "version-tdd", LocalDate.now());
+        ArrayList<Role> roles = new ArrayList<>();
+        User user = new User(1L, "version-tdd", LocalDate.now(),"","","","", roles);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         Optional<User> userToFind = userService.findById(1L);
