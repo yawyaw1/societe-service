@@ -19,4 +19,8 @@ public class Role implements Serializable {
 
     @Column(name = "ROLE")
     private String role;
+
+    public Role(String role) {
+        this.role = role;
+    }
 }
