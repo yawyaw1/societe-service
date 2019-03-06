@@ -44,7 +44,11 @@ public class User implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Role> roles = new ArrayList<>();
 
-    public User(){}
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Company> companies = new ArrayList<>();
+
+    public User() {
+    }
 
     public User(String firstname, String lastname, String username, String password) {
         this.firstname = firstname;
