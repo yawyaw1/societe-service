@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
@@ -25,6 +27,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
+
+    private static final String USERNAME = "username1";
 
     @InjectMocks
     private UserService userService = new UserServiceImpl();
@@ -81,7 +85,7 @@ public class UserServiceImplTest {
 
     @Test
     public void should_return_an_existing_user_test() throws Exception {
-        User user = new User(1L, "version-tdd", LocalDate.now(),"","","","", null,null);
+        User user = new User(1L, "version-tdd", LocalDate.now(), "", "", "", "", null, null);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         Optional<User> userToFind = userService.findById(1L);
@@ -89,4 +93,36 @@ public class UserServiceImplTest {
         assertEquals("version-tdd", userToFind.get().getVersion());
         assertEquals(LocalDate.now().toString(), userToFind.get().getCreationDate().toString());
     }
+
+    @Test
+    public void should_return_user_by_username_test() {
+        User user = new User();
+        user.setUsername(USERNAME);
+        user.setFirstname("Youssef");
+        user.setLastname("SMIMAA");
+
+        Optional<User> optionalUser = Optional.of(user);
+
+        when(userRepository.findUserByUsername(USERNAME)).thenReturn(optionalUser);
+
+        Optional<User> userToFind = userService.findUserByUsername(USERNAME);
+
+        assertNotNull(userToFind);
+        assertEquals(userToFind.get().getUsername(), USERNAME);
+        assertEquals(userToFind.get().getLastname(), "SMIMAA");
+        assertEquals(userToFind.get().getFirstname(), "Youssef");
+
+    }
+
+    @Test
+    public void should_fetch_users_list_test() {
+        Stream<User> users = Stream.empty();
+        when(userRepository.findAll()).thenReturn(users.collect(Collectors.toList()));
+
+        Stream<User> userStream = userService.findUsers();
+        assertNotNull(userStream);
+        assertEquals(0, userStream.count());
+    }
+
+
 }
