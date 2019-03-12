@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.dao.CompanyRepository;
 import com.example.demo.entities.User;
 import com.example.demo.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +18,7 @@ public class SocieteServiceApplication {
     }
 
     @Bean
-    CommandLineRunner runner(UserService userService){
+    CommandLineRunner runner(UserService userService, CompanyRepository companyRepository){
         return args-> Stream.of(new User("firstname1", "lastname1", "username1", "password1"))
                 .forEach(userService::create);
     }
