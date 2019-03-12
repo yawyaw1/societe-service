@@ -31,7 +31,8 @@ public class SecurityEntryPoint extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/api/users/**", "/signup").hasRole("USER")
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/api/users/**", "/signup").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin();
