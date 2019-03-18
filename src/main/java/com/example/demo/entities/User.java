@@ -52,10 +52,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String firstname, String lastname, String username, String password) {
+    public User(String firstname, String lastname, String username, String password,List<Company> companies) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
+        this.companies=companies;
     }
 }

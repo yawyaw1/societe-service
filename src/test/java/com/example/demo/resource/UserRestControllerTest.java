@@ -52,7 +52,7 @@ public class UserRestControllerTest {
 
     @Test
     public void testFetchUsers() throws Exception {
-        User user = new User("firstname1", "lastname1", "username1", "password1");
+        User user = new User("firstname1", "lastname1", "username1", "password1",null);
         mockServer.expect(ExpectedCount.once(), MockRestRequestMatchers.requestTo(new URI(URL_USER)))
                 .andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
                 .andRespond(MockRestResponseCreators.withStatus(HttpStatus.OK)

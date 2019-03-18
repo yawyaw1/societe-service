@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.SocieteServiceApplication;
+import com.example.demo.entities.Company;
 import com.example.demo.entities.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by Adservio on 04/03/2019.
@@ -53,11 +56,19 @@ public class UserRepositoryTest {
 
     @Test
     public void should_persist_user_to_db() {
+        List<Company> companies=new ArrayList<>();
+        Company company = new Company();
+        company.setDescription("company1");
+        companies.add(company);
+
         User user = new User();
         user.setFirstname("firstname");
+        user.setCompanies(companies);
+
         User userToPersist = userRepository.save(user);
-        Assert.assertNotNull(userToPersist);
-        Assert.assertEquals("firstname", userToPersist.getFirstname());
+        assertNotNull(userToPersist);
+        assertEquals("firstname", userToPersist.getFirstname());
+
     }
 
     @Test
@@ -66,8 +77,8 @@ public class UserRepositoryTest {
         user.setFirstname("firstname");
         userRepository.save(user);
         User userToFind = userRepository.findById(1L).get();
-        Assert.assertNotNull(userToFind);
-        Assert.assertEquals("firstname", userToFind.getFirstname());
+        assertNotNull(userToFind);
+        assertEquals("firstname", userToFind.getFirstname());
     }
 
     @Test
@@ -81,7 +92,6 @@ public class UserRepositoryTest {
 
     @Test
     public void should_retrieve_list_of_users() {
-
         Stream<User> userStream = userRepository.findAll().stream();
         Assert.assertEquals(0,userStream.count());
         Assert.assertNotNull(userStream);

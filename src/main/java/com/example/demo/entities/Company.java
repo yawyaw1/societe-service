@@ -49,5 +49,4 @@ public class Company implements Serializable {
     @ManyToOne
     private User user;
 
-
 }
