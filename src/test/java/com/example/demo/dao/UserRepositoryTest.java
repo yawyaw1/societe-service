@@ -67,7 +67,7 @@ public class UserRepositoryTest {
         userRepository.save(user);
         User userToFind = userRepository.findById(1L).get();
         Assert.assertNotNull(userToFind);
-        Assert.assertEquals("firstname", userToFind.getFirstname());
+        Assert.assertEquals("firstname1", userToFind.getFirstname());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class UserRepositoryTest {
     public void should_retrieve_list_of_users() {
 
         Stream<User> userStream = userRepository.findAll().stream();
-        Assert.assertEquals(0,userStream.count());
+        Assert.assertEquals(2,userStream.count());
         Assert.assertNotNull(userStream);
 
     }

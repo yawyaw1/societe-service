@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.RoleRepository;
+import com.example.demo.dao.AuthorityRepository;
 import com.example.demo.dao.UserRepository;
-import com.example.demo.entities.Role;
+import com.example.demo.entities.Authority;
 import com.example.demo.entities.User;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.exception.UserValidationException;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -25,26 +26,26 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private AuthorityRepository authorityRepository;
 
     @Override
-    public Boolean create(User user) {
-        if (user != null) {
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    public Optional<User> create(User user) {
+        if (user.getFirstname() != null) {
+           /* BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             String encryptPwd = bCryptPasswordEncoder.encode(user.getPassword());
-            user.setPassword(encryptPwd);
+            user.setPassword(encryptPwd);*/
 
-            List<Role> roles = new ArrayList<>(1);
-            roles.add(new Role("USER"));
+            List<Authority> authorities = new ArrayList<>(1);
+            authorities.add(new Authority("USER"));
 
-            roleRepository.saveAll(roles);
+            authorityRepository.saveAll(authorities);
 
-            user.setRoles(roles);
+            user.setAuthorities(authorities);
             userRepository.saveAndFlush(user);
 
-            return true;
+            return Optional.of(user);
         }
-        return false;
+        throw new UserValidationException("Validation problem");
     }
 
     @Override
@@ -67,10 +68,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(Long id) {
-        if (id != null) {
-            return userRepository.findById(id);
+        Optional<User> byId = userRepository.findById(id);
+        if (byId.isPresent()) {
+            return byId;
         }
-        return Optional.empty();
+        throw new UserNotFoundException("User not found");
+
     }
 
     @Override

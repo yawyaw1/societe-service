@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class User implements Serializable {
     @Column(name = "CREATE_DATE")
     private LocalDate creationDate;
 
+    @NotEmpty(message = "This field should not be empty !")
     @Column(name = "FIRSTNAME")
     private String firstname;
 
@@ -44,7 +46,7 @@ public class User implements Serializable {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();
+    private List<Authority> authorities= new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Company> companies = new ArrayList<>();
