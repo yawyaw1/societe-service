@@ -2,26 +2,40 @@ package com.example.demo.resource;
 
 
 import com.example.demo.entities.User;
+import com.example.demo.exception.ErrorMessage;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.exception.UserValidationException;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.xml.bind.ValidationException;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserRestController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<Stream<User>> fetchUsers(){
-        Stream<User> users=userService.findUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public Stream<User> fetchUsers() {
+        return userService.findUsers();
     }
+
+    @PutMapping
+    public User createUser(@Valid User user) {
+        return userService.create(user).orElseThrow(() -> new UserValidationException(""));
+    }
+
+    @GetMapping("/findById/{id}")
+    public User getUserById(@PathVariable("id") Long id) {
+        return userService.findById(id).orElseThrow(() -> new UserNotFoundException(""));
+    }
+
+
 }

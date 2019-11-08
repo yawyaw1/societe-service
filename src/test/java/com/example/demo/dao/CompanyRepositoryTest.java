@@ -47,7 +47,7 @@ public class CompanyRepositoryTest {
         Company company = new Company();
         Company createdCompany = companyRepository.save(company);
         assertNotNull(createdCompany);
-        assertEquals(2L, createdCompany.getId(), 0);
+        assertEquals(5, createdCompany.getId(), 0);
 
     }
 

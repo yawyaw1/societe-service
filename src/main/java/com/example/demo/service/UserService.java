@@ -14,7 +14,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    Boolean create(User user);
+    Optional<User> create(User user);
 
     /**
      *

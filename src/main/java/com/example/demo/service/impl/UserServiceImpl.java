@@ -1,14 +1,13 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.RoleRepository;
+import com.example.demo.dao.AuthorityRepository;
 import com.example.demo.dao.UserRepository;
-import com.example.demo.entities.Role;
+import com.example.demo.entities.Authority;
 import com.example.demo.entities.User;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.exception.UserValidationException;
 import com.example.demo.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,42 +22,35 @@ import java.util.stream.Stream;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
-
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private AuthorityRepository authorityRepository;
 
     @Override
-    public Boolean create(User user) {
-        if (user != null) {
-            LOGGER.info("Crypt the user password");
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    public Optional<User> create(User user) {
+        if (user.getFirstname() != null) {
+           /* BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             String encryptPwd = bCryptPasswordEncoder.encode(user.getPassword());
-            user.setPassword(encryptPwd);
+            user.setPassword(encryptPwd);*/
 
-            List<Role> roles = new ArrayList<>(1);
-            roles.add(new Role("USER"));
+            List<Authority> authorities = new ArrayList<>(1);
+            authorities.add(new Authority("USER"));
 
-            LOGGER.info("Save the role");
-            roleRepository.saveAll(roles);
+            authorityRepository.saveAll(authorities);
 
-            user.setRoles(roles);
-
-            LOGGER.info("Persist the user ");
+            user.setAuthorities(authorities);
             userRepository.saveAndFlush(user);
 
-            return true;
+            return Optional.of(user);
         }
-        return false;
+        throw new UserValidationException("Validation problem");
     }
 
     @Override
     public Boolean update(User user) {
         if (user != null) {
-            LOGGER.info("Update the user ", user.getId());
             userRepository.saveAndFlush(user);
             return true;
         }
@@ -68,7 +60,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean delete(User user) {
         if (user != null) {
-            LOGGER.info("Delete user ", user.getId());
             userRepository.delete(user);
             return true;
         }
@@ -77,17 +68,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(Long id) {
-        if (id != null) {
-            LOGGER.info("Retrieve user by id " + id);
-            return userRepository.findById(id);
+        Optional<User> byId = userRepository.findById(id);
+        if (byId.isPresent()) {
+            return byId;
         }
-        return Optional.empty();
+        throw new UserNotFoundException("User not found");
+
     }
 
     @Override
     public Optional<User> findUserByUsername(String username) {
         if (!StringUtils.isEmpty(username)) {
-            LOGGER.info("Retrieve user by username ", username);
             return userRepository.findUserByUsername(username);
         }
         return Optional.empty();
@@ -95,7 +86,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Stream<User> findUsers() {
-        LOGGER.info("Retrieve all users");
         return userRepository.findAll().stream();
     }
 }
