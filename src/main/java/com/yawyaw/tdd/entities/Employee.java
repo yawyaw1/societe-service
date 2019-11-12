@@ -1,4 +1,4 @@
-package com.yawyaw.tdd.entities;
+package com.example.demo.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 
 @Data
 @AllArgsConstructor

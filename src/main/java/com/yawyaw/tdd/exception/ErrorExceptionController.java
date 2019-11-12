@@ -1,4 +1,4 @@
-package com.yawyaw.tdd.exception;
+package com.example.demo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

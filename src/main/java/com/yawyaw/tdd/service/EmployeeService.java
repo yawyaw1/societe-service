@@ -1,6 +1,6 @@
-package com.yawyaw.tdd.service;
+package com.example.demo.service;
 
-import com.yawyaw.tdd.entities.Employee;
+import com.example.demo.entities.Employee;
 
 import java.util.List;
 import java.util.Optional;

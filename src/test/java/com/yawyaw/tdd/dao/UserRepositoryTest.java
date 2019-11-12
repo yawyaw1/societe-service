@@ -81,7 +81,6 @@ public class UserRepositoryTest {
 
     @Test
     public void should_retrieve_list_of_users() {
-
         Stream<User> userStream = userRepository.findAll().stream();
         Assert.assertEquals(2,userStream.count());
         Assert.assertNotNull(userStream);

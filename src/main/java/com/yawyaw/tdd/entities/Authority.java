@@ -1,4 +1,4 @@
-package com.yawyaw.tdd.entities;
+package com.example.demo.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

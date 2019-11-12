@@ -1,11 +1,12 @@
 package com.yawyaw.tdd.service.impl;
 
-import com.yawyaw.tdd.dao.AuthorityRepository;
+import com.example.demo.dao.AuthorityRepository;
+import com.example.demo.entities.Authority;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.exception.UserValidationException;
+
 import com.yawyaw.tdd.dao.UserRepository;
-import com.yawyaw.tdd.entities.Authority;
 import com.yawyaw.tdd.entities.User;
-import com.yawyaw.tdd.exception.UserNotFoundException;
-import com.yawyaw.tdd.exception.UserValidationException;
 import com.yawyaw.tdd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

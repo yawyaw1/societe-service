@@ -1,8 +1,8 @@
-package com.yawyaw.tdd.resource;
+package com.example.demo.resource;
 
 
-import com.yawyaw.tdd.entities.Employee;
-import com.yawyaw.tdd.service.EmployeeService;
+import com.example.demo.entities.Employee;
+import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employee")
@@ -37,4 +38,3 @@ public class EmployeeRestController {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 }
-

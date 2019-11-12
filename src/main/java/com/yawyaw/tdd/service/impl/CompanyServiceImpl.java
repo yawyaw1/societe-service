@@ -1,5 +1,7 @@
 package com.yawyaw.tdd.service.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.yawyaw.tdd.dao.CompanyRepository;
 import com.yawyaw.tdd.entities.Company;
 import com.yawyaw.tdd.service.CompanyService;
@@ -11,6 +13,8 @@ import java.util.Optional;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
+    private final static Logger LOGGER = LogManager.getLogger(CompanyServiceImpl.class);
+
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -18,6 +22,7 @@ public class CompanyServiceImpl implements CompanyService {
     public Optional<Company> create(Company company) {
         if (company != null) {
             companyRepository.save(company);
+            LOGGER.info("saving company to the database");
             return Optional.of(company);
         }
         return Optional.empty();
@@ -32,7 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Optional<Company> findCompanyById(Long id) {
-        if(id != null){
+        if (id != null) {
             return companyRepository.findById(id);
         }
         return Optional.empty();

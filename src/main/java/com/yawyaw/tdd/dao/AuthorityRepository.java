@@ -1,6 +1,6 @@
-package com.yawyaw.tdd.dao;
+package com.example.demo.dao;
 
-import com.yawyaw.tdd.entities.Authority;
+import com.example.demo.entities.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
