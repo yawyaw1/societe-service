@@ -1,9 +1,9 @@
-package com.example.demo.resource;
+package com.yawyaw.tdd.resource;
 
 
-import com.example.demo.exception.UserNotFoundException;
-import com.example.demo.exception.UserValidationException;
 import com.yawyaw.tdd.entities.User;
+import com.yawyaw.tdd.exception.UserNotFoundException;
+import com.yawyaw.tdd.exception.UserValidationException;
 import com.yawyaw.tdd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
