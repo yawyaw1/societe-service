@@ -2,8 +2,8 @@ package com.yawyaw.tdd.resource;
 
 
 import com.yawyaw.tdd.entities.User;
-import com.yawyaw.tdd.exception.UserNotFoundException;
-import com.yawyaw.tdd.exception.UserValidationException;
+import com.yawyaw.tdd.exception.NotFoundException;
+import com.yawyaw.tdd.exception.ValidationException;
 import com.yawyaw.tdd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +25,12 @@ public class UserRestController {
 
     @PutMapping
     public User createUser(@Valid User user) {
-        return userService.create(user).orElseThrow(() -> new UserValidationException(""));
+        return userService.create(user).orElseThrow(() -> new ValidationException(""));
     }
 
     @GetMapping("/findById/{id}")
     public User getUserById(@PathVariable("id") Long id) {
-        return userService.findById(id).orElseThrow(() -> new UserNotFoundException(""));
+        return userService.findById(id).orElseThrow(() -> new NotFoundException(""));
     }
 
 

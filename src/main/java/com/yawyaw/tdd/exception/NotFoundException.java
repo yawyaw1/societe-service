@@ -1,11 +1,11 @@
 package com.yawyaw.tdd.exception;
 
-public class UserNotFoundException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 
     private String message;
 
-    public UserNotFoundException(){}
-    public UserNotFoundException(String message) {
+    public NotFoundException(){}
+    public NotFoundException(String message) {
         this.message = message;
     }
 

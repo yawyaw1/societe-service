@@ -1,10 +1,10 @@
 package com.yawyaw.tdd.exception;
 
-public class UserValidationException extends RuntimeException {
+public class ValidationException extends RuntimeException {
 
     private String message;
-    public UserValidationException(){}
-    public UserValidationException(String message) {
+    public ValidationException(){}
+    public ValidationException(String message) {
         this.message = message;
     }
 

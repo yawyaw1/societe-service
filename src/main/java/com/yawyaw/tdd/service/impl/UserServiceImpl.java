@@ -5,8 +5,8 @@ import com.yawyaw.tdd.dao.AuthorityRepository;
 import com.yawyaw.tdd.dao.UserRepository;
 import com.yawyaw.tdd.entities.Authority;
 import com.yawyaw.tdd.entities.User;
-import com.yawyaw.tdd.exception.UserNotFoundException;
-import com.yawyaw.tdd.exception.UserValidationException;
+import com.yawyaw.tdd.exception.NotFoundException;
+import com.yawyaw.tdd.exception.ValidationException;
 import com.yawyaw.tdd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
             return Optional.of(user);
         }
-        throw new UserValidationException("Validation problem");
+        throw new ValidationException("Validation problem");
     }
 
     @Override
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         if (byId.isPresent()) {
             return byId;
         }
-        throw new UserNotFoundException("User not found");
+        throw new NotFoundException("User not found");
 
     }
 
