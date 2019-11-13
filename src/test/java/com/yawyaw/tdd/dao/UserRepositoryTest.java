@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-/**
- * Created by Adservio on 04/03/2019.
- */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocieteServiceApplication.class)
 @ActiveProfiles("test")
@@ -51,38 +47,21 @@ public class UserRepositoryTest {
         users.add(user4);
     }
 
-    @Test
-    public void should_persist_user_to_db() {
-        User user = new User();
-        user.setFirstname("firstname");
-        User userToPersist = userRepository.save(user);
-        Assert.assertNotNull(userToPersist);
-        Assert.assertEquals("firstname", userToPersist.getFirstname());
-    }
 
     @Test
     public void should_retrieve_user_with_id() {
         User user = new User();
         user.setFirstname("firstname");
-        userRepository.save(user);
         User userToFind = userRepository.findById(1L).get();
         Assert.assertNotNull(userToFind);
         Assert.assertEquals("firstname1", userToFind.getFirstname());
-    }
-
-    @Test
-    public void should_delete_user_by_id() {
-        User user = new User();
-        user.setFirstname("firstname");
-        User userToPersist = userRepository.save(user);
-        userRepository.deleteById(userToPersist.getId());
     }
 
 
     @Test
     public void should_retrieve_list_of_users() {
         Stream<User> userStream = userRepository.findAll().stream();
-        Assert.assertEquals(8,userStream.count());
+        Assert.assertEquals(14,userStream.count());
         Assert.assertNotNull(userStream);
 
     }
