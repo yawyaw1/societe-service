@@ -1,8 +1,8 @@
-package com.example.demo.service.impl;
+package com.yawyaw.tdd.service.impl;
 
-import com.example.demo.dao.EmployeeRepository;
-import com.example.demo.entities.Employee;
-import com.example.demo.service.EmployeeService;
+import com.yawyaw.tdd.dao.EmployeeRepository;
+import com.yawyaw.tdd.entities.Employee;
+import com.yawyaw.tdd.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

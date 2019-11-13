@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.yawyaw.tdd.exception;
 
 public class UserNotFoundException extends RuntimeException {
 

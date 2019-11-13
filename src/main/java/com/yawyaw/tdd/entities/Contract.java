@@ -1,6 +1,7 @@
-package com.example.demo.entities;
+package com.yawyaw.tdd.entities;
 
-import com.example.demo.enums.ContractType;
+
+import com.yawyaw.tdd.enums.ContractType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.example.demo.enums;
+package com.yawyaw.tdd.enums;
 
 public enum ContractType {
 

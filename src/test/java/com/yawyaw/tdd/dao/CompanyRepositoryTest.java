@@ -47,7 +47,7 @@ public class CompanyRepositoryTest {
         Company company = new Company();
         Company createdCompany = companyRepository.save(company);
         assertNotNull(createdCompany);
-        assertEquals(5, createdCompany.getId(), 0);
+        assertEquals(15, createdCompany.getId(), 0);
 
     }
 
@@ -71,7 +71,7 @@ public class CompanyRepositoryTest {
         companyRepository.saveAll(companies);
 
         List<Company> companyList = companyRepository.findAll();
-        assertEquals(3, companyList.stream().count());
+        assertEquals(8, companyList.stream().count());
     }
 
 }
