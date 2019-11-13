@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,16 +17,16 @@ import java.util.stream.Collectors;
 public class ErrorExceptionController {
 
     @ResponseBody
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorMessage getException(UserNotFoundException e) {
-        return new ErrorMessage(HttpStatus.NOT_FOUND.value(), e.getMessage());
+    public ErrorMessage getException(NotFoundException e) {
+        return new ErrorMessage(LocalDateTime.now(),HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 
     @ResponseBody
-    @ExceptionHandler(UserValidationException.class)
-    public ErrorMessage getErrorValidation(UserValidationException e) {
-        return new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    @ExceptionHandler(ValidationException.class)
+    public ErrorMessage getErrorValidation(ValidationException e) {
+        return new ErrorMessage(LocalDateTime.now(),HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ResponseBody
@@ -32,6 +34,6 @@ public class ErrorExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<ErrorMessage> inputFieldException(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        return fieldErrors.stream().map(fieldError -> new ErrorMessage(Integer.valueOf(fieldError.getCode()), fieldError.getDefaultMessage())).collect(Collectors.toList());
+        return fieldErrors.stream().map(fieldError -> new ErrorMessage(LocalDateTime.now(),Integer.valueOf(fieldError.getCode()), fieldError.getDefaultMessage())).collect(Collectors.toList());
     }
 }

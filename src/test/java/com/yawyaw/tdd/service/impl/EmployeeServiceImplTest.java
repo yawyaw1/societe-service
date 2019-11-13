@@ -62,9 +62,9 @@ public class EmployeeServiceImplTest {
         Optional<Employee> returnedEmployee = Optional.of(employee);
         Mockito.when(employeeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(returnedEmployee);
 
-        Optional<Employee> employeeById = employeeService.findEmployeeById(1L);
+        Employee employeeById = employeeService.findEmployeeById(1L);
 
-        Assert.assertEquals("firstname1", employeeById.get().getFirstname());
+        Assert.assertEquals("firstname1", employeeById.getFirstname());
 
         Mockito.verify(employeeRepository, Mockito.times(1)).findById(ArgumentMatchers.anyLong());
 

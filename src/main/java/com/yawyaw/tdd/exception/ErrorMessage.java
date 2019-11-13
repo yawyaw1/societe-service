@@ -1,32 +1,19 @@
 package com.yawyaw.tdd.exception;
 
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
 public class ErrorMessage {
 
+    private LocalDateTime date;
     private int code;
     private String message;
 
-    public ErrorMessage() {
-
-    }
-
-    public ErrorMessage(int code, String message) {
+    public ErrorMessage(LocalDateTime date, int code, String message) {
+        this.date = date;
         this.code = code;
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
     }
 }

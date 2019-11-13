@@ -25,7 +25,7 @@ public interface EmployeeService {
      * @param id
      * @return
      */
-    Optional<Employee> findEmployeeById(Long id);
+    Employee findEmployeeById(Long id);
 
     /**
      *
