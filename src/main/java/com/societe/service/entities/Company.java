@@ -1,7 +1,6 @@
 package com.societe.service.entities;
 
 import com.societe.service.enums.*;
-import com.yawyaw.tdd.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
