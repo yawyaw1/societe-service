@@ -11,10 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Adservio on 07/12/2018.
- */
-
 @AllArgsConstructor
 @Data
 @Entity(name = "User")

@@ -1,10 +1,12 @@
-package com.example.demo.service.impl;
+package com.yawyaw.tdd.service.impl;
 
-import com.example.demo.dao.EmployeeRepository;
-import com.example.demo.entities.Employee;
-import com.example.demo.service.EmployeeService;
+import com.yawyaw.tdd.dao.EmployeeRepository;
+import com.yawyaw.tdd.entities.Employee;
+import com.yawyaw.tdd.exception.EmployeeInvalidException;
+import com.yawyaw.tdd.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,24 +19,38 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee create(Employee employee) {
-        if(employee !=null){
-            employeeRepository.save(employee);
+        if (employee != null) {
+            return employeeRepository.save(employee);
         }
-        return null;
+        throw new EmployeeInvalidException("Invalid input employee");
     }
 
     @Override
     public void deleteById(Long id) {
+        if (id != null) {
+            employeeRepository.deleteById(id);
+        } else {
+            throw new EmployeeInvalidException("Invalid input id");
+        }
 
     }
 
     @Override
     public Optional<Employee> findEmployeeById(Long id) {
-        return Optional.empty();
+        if (id != null) {
+            return employeeRepository.findById(id);
+        } else {
+            throw new EmployeeInvalidException("Invalid input id");
+        }
     }
 
     @Override
     public List<Employee> retrieveEmployees() {
-        return employeeRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAll();
+        if (!CollectionUtils.isEmpty(employeeList)) {
+            return employeeList;
+        } else {
+            return null;
+        }
     }
 }
