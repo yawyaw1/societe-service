@@ -35,7 +35,6 @@ public class Employee {
 
     @Column(name = "BIRTHDAY")
     @CreatedDate
-    @Size(max = 30,message = "Birthday should not be empty")
     private LocalDate birthday;
 
 }
