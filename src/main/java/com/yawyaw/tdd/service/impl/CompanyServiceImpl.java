@@ -19,7 +19,7 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
 
     @Override
-    public Optional<Company> create(Company company) {
+    public Optional<Company> createCompany(Company company) {
         if (company != null) {
             companyRepository.save(company);
             LOGGER.info("saving company to the database");

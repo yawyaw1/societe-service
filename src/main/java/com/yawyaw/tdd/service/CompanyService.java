@@ -14,7 +14,7 @@ public interface CompanyService {
      * @param company
      * @return
      */
-    Optional<Company> create(Company company);
+    Optional<Company> createCompany(Company company);
 
     /**
      *
