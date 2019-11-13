@@ -14,7 +14,7 @@ public interface CompanyService {
      * @param company
      * @return
      */
-    Optional<Company> createCompany(Company company);
+    Company createCompany(Company company);
 
     /**
      *
@@ -27,5 +27,5 @@ public interface CompanyService {
      * @param id
      * @return
      */
-    Optional<Company> findCompanyById(Long id);
+    Company findCompanyById(Long id);
 }

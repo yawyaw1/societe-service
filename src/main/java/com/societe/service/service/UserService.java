@@ -1,7 +1,9 @@
 package com.societe.service.service;
 
+import com.societe.service.entities.Employee;
 import com.societe.service.entities.User;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -14,39 +16,39 @@ public interface UserService {
      * @param user
      * @return
      */
-    Optional<User> create(User user);
+    User create(User user);
 
     /**
      *
      * @param user
      * @return
      */
-    Boolean update(User user);
+    User update(User user);
 
     /**
      *
      * @param user
      * @return
      */
-    Boolean delete(User user);
+    User delete(User user);
 
     /**
      *
      * @param id
      * @return
      */
-    Optional<User> findById(Long id);
+    User findById(Long id);
 
     /**
      *
      * @param username
      * @return
      */
-    Optional<User> findUserByUsername(String username);
+    User findUserByUsername(String username);
 
     /**
      *
      * @return
      */
-    Stream<User> findUsers();
+    List<User> findUsers();
 }

@@ -18,21 +18,21 @@ public class ErrorExceptionController {
     @ResponseBody
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorMessage getException(NotFoundException e) {
-        return new ErrorMessage(LocalDateTime.now(),HttpStatus.NOT_FOUND.value(), e.getMessage());
+    public ErrorMessageException getException(NotFoundException e) {
+        return new ErrorMessageException(LocalDateTime.now(),HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(ValidationException.class)
-    public ErrorMessage getErrorValidation(ValidationException e) {
-        return new ErrorMessage(LocalDateTime.now(),HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    public ErrorMessageException getErrorValidation(ValidationException e) {
+        return new ErrorMessageException(LocalDateTime.now(),HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public List<ErrorMessage> inputFieldException(MethodArgumentNotValidException e) {
+    public List<ErrorMessageException> inputFieldException(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        return fieldErrors.stream().map(fieldError -> new ErrorMessage(LocalDateTime.now(),Integer.valueOf(fieldError.getCode()), fieldError.getDefaultMessage())).collect(Collectors.toList());
+        return fieldErrors.stream().map(fieldError -> new ErrorMessageException(LocalDateTime.now(),Integer.valueOf(fieldError.getCode()), fieldError.getDefaultMessage())).collect(Collectors.toList());
     }
 }

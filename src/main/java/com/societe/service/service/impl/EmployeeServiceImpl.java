@@ -1,9 +1,12 @@
 package com.societe.service.service.impl;
 
 import com.societe.service.entities.Employee;
+import com.societe.service.enums.ErrorMessage;
 import com.societe.service.exception.ValidationException;
 import com.societe.service.service.EmployeeService;
 import com.societe.service.dao.EmployeeRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -13,6 +16,8 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private final static Logger LOGGER = LogManager.getLogger(EmployeeServiceImpl.class);
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -21,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee != null) {
             return employeeRepository.save(employee);
         }
-        throw new ValidationException("Invalid input employee");
+        throw new ValidationException(ErrorMessage.LOG002_MSG.getName() + employee);
     }
 
     @Override
@@ -29,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (id != null) {
             employeeRepository.deleteById(id);
         } else {
-            throw new ValidationException("Invalid input id");
+            throw new ValidationException(ErrorMessage.LOG002_MSG.getName() + id);
         }
 
     }
@@ -37,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployeeById(Long id) {
         if (id != null) {
-            return employeeRepository.findById(id).orElseThrow(()->new ValidationException("Invalid input id"));
+            return employeeRepository.findById(id).orElseThrow(() -> new ValidationException(ErrorMessage.LOG002_MSG.getName() + id));
         }
         return null;
     }

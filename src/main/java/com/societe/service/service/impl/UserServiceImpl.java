@@ -1,6 +1,7 @@
 package com.societe.service.service.impl;
 
 
+import com.societe.service.enums.ErrorMessage;
 import com.societe.service.exception.NotFoundException;
 import com.societe.service.dao.AuthorityRepository;
 import com.societe.service.dao.UserRepository;
@@ -8,6 +9,8 @@ import com.societe.service.entities.Authority;
 import com.societe.service.entities.User;
 import com.societe.service.exception.ValidationException;
 import com.societe.service.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,13 +18,12 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-/**
- * Created by Adservio on 07/12/2018.
- */
+
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final static Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
     private AuthorityRepository authorityRepository;
 
     @Override
-    public Optional<User> create(User user) {
+    public User create(User user) {
         if (user.getFirstname() != null) {
            /* BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             String encryptPwd = bCryptPasswordEncoder.encode(user.getPassword());
@@ -44,49 +46,49 @@ public class UserServiceImpl implements UserService {
             user.setAuthorities(authorities);
             userRepository.saveAndFlush(user);
 
-            return Optional.of(user);
+            return user;
         }
-        throw new ValidationException("Validation problem");
+        throw new ValidationException(ErrorMessage.LOG002_MSG.getName() + user);
     }
 
     @Override
-    public Boolean update(User user) {
+    public User update(User user) {
         if (user != null) {
-            userRepository.saveAndFlush(user);
-            return true;
+            return userRepository.saveAndFlush(user);
+        } else {
+            throw new ValidationException(ErrorMessage.LOG002_MSG.getName() + user);
         }
-        return false;
     }
 
     @Override
-    public Boolean delete(User user) {
+    public User delete(User user) {
         if (user != null) {
             userRepository.delete(user);
-            return true;
+            return user;
+        } else {
+            throw new ValidationException(ErrorMessage.LOG002_MSG.getName() + user);
         }
-        return false;
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        Optional<User> byId = userRepository.findById(id);
-        if (byId.isPresent()) {
-            return byId;
+    public User findById(Long id) {
+        if (null != id) {
+            return userRepository.findById(id).orElseThrow(() -> new ValidationException(ErrorMessage.LOG002_MSG.getName() + id));
         }
-        throw new NotFoundException("User not found");
+        return null;
 
     }
 
     @Override
-    public Optional<User> findUserByUsername(String username) {
+    public User findUserByUsername(String username) {
         if (!StringUtils.isEmpty(username)) {
-            return userRepository.findUserByUsername(username);
+            return userRepository.findUserByUsername(username).orElseThrow(() -> new NotFoundException(username + ErrorMessage.LOG003_MSG.getName()));
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
-    public Stream<User> findUsers() {
-        return userRepository.findAll().stream();
+    public List<User> findUsers() {
+        return userRepository.findAll();
     }
 }

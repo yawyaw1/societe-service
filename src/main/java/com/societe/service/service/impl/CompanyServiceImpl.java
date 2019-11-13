@@ -1,5 +1,7 @@
 package com.societe.service.service.impl;
 
+import com.societe.service.enums.ErrorMessage;
+import com.societe.service.exception.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.societe.service.dao.CompanyRepository;
@@ -19,27 +21,28 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
 
     @Override
-    public Optional<Company> createCompany(Company company) {
+    public Company createCompany(Company company) {
         if (company != null) {
-            companyRepository.save(company);
             LOGGER.info("saving company to the database");
-            return Optional.of(company);
+            return companyRepository.save(company);
         }
-        return Optional.empty();
+        throw new ValidationException(ErrorMessage.LOG001_MSG.getName());
     }
 
     @Override
     public void deleteById(Long id) {
         if (id != null) {
             companyRepository.deleteById(id);
+        } else {
+            throw new ValidationException(ErrorMessage.LOG001_MSG.getName());
         }
     }
 
     @Override
-    public Optional<Company> findCompanyById(Long id) {
+    public Company findCompanyById(Long id) {
         if (id != null) {
-            return companyRepository.findById(id);
+            return companyRepository.findById(id).orElseThrow(() -> new ValidationException(ErrorMessage.LOG001_MSG.getName()));
         }
-        return Optional.empty();
+        return null;
     }
 }
