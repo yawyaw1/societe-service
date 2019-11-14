@@ -2,7 +2,6 @@ package com.societe.service.resource;
 
 
 import com.societe.service.entities.User;
-import com.societe.service.exception.NotFoundException;
 import com.societe.service.exception.ValidationException;
 import com.societe.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

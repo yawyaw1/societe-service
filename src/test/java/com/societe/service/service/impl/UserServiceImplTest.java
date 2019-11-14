@@ -22,9 +22,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by Adservio on 07/12/2018.
- */
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
@@ -55,10 +52,8 @@ public class UserServiceImplTest {
     @Test
     public void should_create_user_test() throws Exception {
         when(userRepository.save(user)).thenReturn(user);
-        Optional<User> insert = userService.create(user);
+        User insert = userService.create(user);
         assertNotNull(insert);
-        assertEquals(true, insert);
-        assertTrue(insert.isPresent());
 
     }
 
@@ -69,9 +64,8 @@ public class UserServiceImplTest {
 
         when(userRepository.saveAndFlush(user)).thenReturn(userToBeUpdated);
 
-        Boolean userToUpdate = userService.update(user);
-        assertNotNull(userToUpdate);
-        assertEquals(true, userToUpdate);
+        User updatedUser = userService.update(user);
+        assertNotNull(updatedUser);
 
     }
 
@@ -82,9 +76,8 @@ public class UserServiceImplTest {
 
         doNothing().when(userRepository).delete(user);
 
-        Boolean deleteUser = userService.delete(user);
-        assertNotNull(deleteUser);
-        assertTrue(deleteUser);
+        User deletedUser = userService.delete(user);
+        assertNotNull(deletedUser);
 
     }
 
@@ -93,10 +86,10 @@ public class UserServiceImplTest {
         User user = new User(1L, "version-tdd", LocalDate.now(), "", "", "", "", null, null);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        Optional<User> userToFind = userService.findById(1L);
+        User userToFind = userService.findById(1L);
         assertNotNull(userToFind);
-        assertEquals("version-tdd", userToFind.get().getVersion());
-        assertEquals(LocalDate.now().toString(), userToFind.get().getCreationDate().toString());
+        assertEquals("version-tdd", userToFind.getVersion());
+        assertEquals(LocalDate.now().toString(), userToFind.getCreationDate().toString());
     }
 
     @Test
@@ -110,12 +103,12 @@ public class UserServiceImplTest {
 
         when(userRepository.findUserByUsername(USERNAME)).thenReturn(optionalUser);
 
-        Optional<User> userToFind = userService.findUserByUsername(USERNAME);
+        User userToFind = userService.findUserByUsername(USERNAME);
 
         assertNotNull(userToFind);
-        assertEquals(userToFind.get().getUsername(), USERNAME);
-        assertEquals(userToFind.get().getLastname(), "SMIMAA");
-        assertEquals(userToFind.get().getFirstname(), "Youssef");
+        assertEquals(userToFind.getUsername(), USERNAME);
+        assertEquals(userToFind.getLastname(), "SMIMAA");
+        assertEquals(userToFind.getFirstname(), "Youssef");
 
     }
 
@@ -124,9 +117,9 @@ public class UserServiceImplTest {
         Stream<User> users = Stream.empty();
         when(userRepository.findAll()).thenReturn(users.collect(Collectors.toList()));
 
-        Stream<User> userStream = userService.findUsers();
+        List<User> userStream = userService.findUsers();
         assertNotNull(userStream);
-        assertEquals(0, userStream.count());
+        assertEquals(0, userStream.size());
     }
 
 

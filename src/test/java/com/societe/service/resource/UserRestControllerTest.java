@@ -24,9 +24,6 @@ import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-/**
- * Created by Adservio on 06/03/2019.
- */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SocieteServiceApplication.class)

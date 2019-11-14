@@ -39,10 +39,10 @@ public class CompanyServiceImplTest {
     public void should_create_new_company_service_test() {
         when(companyRepository.save(company)).thenReturn(company);
 
-        Optional<Company> createdCompany = companyService.createCompany(company);
+        Company createdCompany = companyService.createCompany(company);
 
         assertNotNull(createdCompany);
-        assertEquals("company1", createdCompany.get().getDescription());
+        assertEquals("company1", createdCompany.getDescription());
 
         verify(companyRepository, times(1)).save(company);
     }
@@ -59,11 +59,11 @@ public class CompanyServiceImplTest {
 
         when(companyRepository.findById(anyLong())).thenReturn(returnedCompany);
 
-        Optional<Company> companyToFind = companyService.findCompanyById(company.getId());
+        Company companyToFind = companyService.findCompanyById(company.getId());
 
         assertNotNull(companyToFind);
-        assertEquals(1L, companyToFind.get().getId(), 0);
-        assertEquals("company1", companyToFind.get().getDescription());
+        assertEquals(1L, companyToFind.getId(), 0);
+        assertEquals("company1", companyToFind.getDescription());
 
         verify(companyRepository, times(1)).findById(anyLong());
 
