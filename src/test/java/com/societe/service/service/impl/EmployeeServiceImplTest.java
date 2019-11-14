@@ -3,6 +3,7 @@ package com.societe.service.service.impl;
 import com.societe.service.dao.EmployeeRepository;
 import com.societe.service.entities.Employee;
 import com.societe.service.service.EmployeeService;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +82,27 @@ public class EmployeeServiceImplTest {
 
         Mockito.verify(employeeRepository, Mockito.times(1)).findAll();
 
+    }
+
+    @Test
+    public void should_return_employee_between_two_dates_test() {
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now().plusYears(1);
+
+
+        ArrayList<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+        Mockito.when(employeeRepository.findEmployeesBetweenDates(ArgumentMatchers.any(LocalDate.class), ArgumentMatchers.any(LocalDate.class))).thenReturn(employees);
+
+        List<Employee> employeesBetweenDates = employeeService.retrieveEmployeesBetweenTwoDates(startDate, endDate);
+
+
+        Assert.assertEquals(1, employeesBetweenDates.size());
+
+        Mockito.verify(employeeRepository, Mockito.times(1)).findEmployeesBetweenDates(ArgumentMatchers.any(LocalDate.class), ArgumentMatchers.any(LocalDate.class));
+
 
     }
+
+
 }

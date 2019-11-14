@@ -1,7 +1,7 @@
 package com.societe.service.service.impl;
 
 
-import com.societe.service.enums.ErrorMessage;
+import com.societe.service.exception.ErrorMessage;
 import com.societe.service.exception.NotFoundException;
 import com.societe.service.dao.AuthorityRepository;
 import com.societe.service.dao.UserRepository;
@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service

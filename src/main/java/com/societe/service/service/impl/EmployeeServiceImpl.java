@@ -1,7 +1,7 @@
 package com.societe.service.service.impl;
 
 import com.societe.service.entities.Employee;
-import com.societe.service.enums.ErrorMessage;
+import com.societe.service.exception.ErrorMessage;
 import com.societe.service.exception.ValidationException;
 import com.societe.service.service.EmployeeService;
 import com.societe.service.dao.EmployeeRepository;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -55,5 +56,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Employee> retrieveEmployeesBetweenTwoDates(LocalDate startDate, LocalDate endDate) {
+        return employeeRepository.findEmployeesBetweenDates(startDate, endDate);
     }
 }

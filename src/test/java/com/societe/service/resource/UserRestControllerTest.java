@@ -1,7 +1,7 @@
 package com.societe.service.resource;
 
 import com.societe.service.entities.User;
-import com.societe.service.SocieteServiceApplication;
+import com.societe.service.SocietyServiceApplication;
 import com.societe.service.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SocieteServiceApplication.class)
+@SpringBootTest(classes = SocietyServiceApplication.class)
 public class UserRestControllerTest {
 
     private static final String URL_USER = "http://localhost:1111/users";

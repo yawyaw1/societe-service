@@ -27,4 +27,7 @@ public class Contract {
     @Enumerated(EnumType.STRING)
     @Column(name = "CONTRACT_TYPE")
     private ContractType contractType;
+
+    @OneToOne(mappedBy = "contract")
+    private Employee employee;
 }

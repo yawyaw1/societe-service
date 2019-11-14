@@ -1,4 +1,4 @@
-package com.societe.service.enums;
+package com.societe.service.exception;
 
 public enum ErrorMessage {
 

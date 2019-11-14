@@ -1,6 +1,6 @@
 package com.societe.service.service.impl;
 
-import com.societe.service.enums.ErrorMessage;
+import com.societe.service.exception.ErrorMessage;
 import com.societe.service.exception.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,8 +9,6 @@ import com.societe.service.entities.Company;
 import com.societe.service.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {

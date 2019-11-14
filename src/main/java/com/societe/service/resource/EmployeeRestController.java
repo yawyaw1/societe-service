@@ -20,7 +20,7 @@ public class EmployeeRestController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<Employee>> retreiveEmployees() {
+    public ResponseEntity<List<Employee>> retrieveEmployees() {
         List<Employee> employees = employeeService.retrieveEmployees();
 
         if (!CollectionUtils.isEmpty(employees)) {
