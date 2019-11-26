@@ -8,11 +8,11 @@
         <version>2.0.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.societe.service.entities</groupId>
-    <artifactId>societe-service</artifactId>
+    <groupId>com.consulting.service.entities</groupId>
+    <artifactId>consulting-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>societe-service</name>
+    <name>consulting-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
